@@ -43,7 +43,9 @@ exports.sourceNodes = async ({ actions, createContentDigest, createNodeId }) => 
       });
     });
 
-    const games = await fetchIGDBData('games', "fields name, rating, genres.name, cover.url; where rating >= 60; sort rating desc; limit 50;");
+    const games = await fetchIGDBData('games', "fields name, rating, genres.name, cover.url; where rating >= 60; sort rating desc; limit 500;");
+    console.log(games); // Temporarily log the fetched games to inspect the data
+
     games.forEach(game => {
       const gameSlug = game.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
       createNode({

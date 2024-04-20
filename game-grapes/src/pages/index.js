@@ -15,7 +15,7 @@ const IndexPage = () => (
     <div className={styles.featuredGames}>
       <h2>Featured Games</h2>
       <div className={styles.gamesGrid}>
-        {/* Replace with dynamic content later */}
+        {/* Replace with (dynamic) content later */}
         <div className={styles.gameCard}>
           <StaticImage
             src="../images/ai-gaming.jpg"

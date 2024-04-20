@@ -11,7 +11,7 @@ export default function GenresPage({ data }) {
       <ul>
         {allGenre.nodes.map(genre => (
           <li key={genre.id}>
-            <Link to={`/genre/${genre.name.toLowerCase().replace(/\s+/g, '-')}/`}>{genre.name}</Link>
+            <Link to={`/genre/${genre.slug}/`}>{genre.name}</Link>
           </li>
         ))}
       </ul>
@@ -19,13 +19,16 @@ export default function GenresPage({ data }) {
   );
 }
 
+
 export const query = graphql`
   query GenresQuery {
     allGenre {
       nodes {
         id
         name
+        slug
       }
     }
   }
 `;
+
