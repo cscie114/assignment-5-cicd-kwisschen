@@ -1,0 +1,16 @@
+/**
+ * @type {import('gatsby').GatsbyConfig}
+ */
+module.exports = {
+  siteMetadata: {
+    title: `Game Grapes`,
+    description: `Gatsby project for Assignment 5 in CSCI E-114`,
+    course: `CSCI E-114`,
+    author: `Christopher Chen`,
+    siteUrl: `http://localhost:8000`,
+  },
+  plugins: [
+    `gatsby-plugin-image`,
+    `gatsby-plugin-sharp`,
+  ],
+}
