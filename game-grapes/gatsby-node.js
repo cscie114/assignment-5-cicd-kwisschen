@@ -133,7 +133,7 @@ exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions;
   createTypes(`
     type Game implements Node @dontInfer {
-      id: String!
+      gameId: String!
       name: String!
       rating: Float
       slug: String!
@@ -142,7 +142,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       genres: [Genre] @link(by: "id")
     }
     type Genre implements Node @dontInfer {
-      id: String!
+      genreId: String!
       name: String!
       slug: String!
       gamesCount: Int

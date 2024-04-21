@@ -1,7 +1,6 @@
 import React from "react";
 import Layout from "../components/layout";
 import Seo from "../components/seo";
-import * as styles from "../styles/layout.module.css";
 
 const AboutPage = () => {
   return (
