@@ -1,10 +1,18 @@
 import React from "react";
-import { graphql } from "gatsby";
+import { graphql, Link } from "gatsby";
 import Layout from "../components/layout";
 
 const GamePage = ({ data }) => {
   const { game } = data;
-  console.log(data); // Check that browser console correctly logs data
+
+  if (!game) {
+    return (
+      <Layout>
+        <p>Game not found.</p>
+      </Layout>
+    );
+  }
+
   return (
     <Layout>
       <div>
@@ -32,6 +40,5 @@ export const query = graphql`
     }
   }
 `;
-
 
 export default GamePage;
