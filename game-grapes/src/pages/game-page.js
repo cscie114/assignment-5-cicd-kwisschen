@@ -8,7 +8,9 @@ const GamePage = ({ data }) => {
     <Layout>
       <div>
         <h1>{game.name}</h1>
-        {game.coverUrl && <img src={game.coverUrl} alt={`Cover Image for ${game.name}`} />}
+        {game.coverUrl && (
+          <img src={game.coverUrl} alt={`Cover image for ${game.name}`} />
+        )}
         <p>Rating: {game.rating ? game.rating.toFixed(1) : "N/A"}</p>
         <p>Summary: {game.summary}</p>
       </div>

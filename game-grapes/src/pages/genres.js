@@ -12,7 +12,7 @@ export default function GenresPage({ data }) {
       <ul>
         {allGenre.nodes.map(genre => (
           <li key={genre.id}>
-            <Link to={`/genre/${genre.slug}/`}>{genre.name}</Link>
+            <Link to={`/genre/${genre.slug}/`}>{genre.name} ({genre.gamesCount})</Link>
           </li>
         ))}
       </ul>
@@ -28,6 +28,7 @@ export const query = graphql`
         id
         name
         slug
+        gamesCount
       }
     }
   }

@@ -15,54 +15,71 @@ async function fetchIGDBData(endpoint, query) {
     headers: HEADERS,
     body: query,
   });
-
   if (!response.ok) {
     const message = await response.text();
     throw new Error(`Failed to fetch from IGDB: ${response.status} ${response.statusText} - ${message}`);
   }
-
   return response.json();
 }
 
 exports.sourceNodes = async ({ actions, createContentDigest, createNodeId }) => {
   const { createNode } = actions;
 
-  try {
-    const genres = await fetchIGDBData('genres', "fields name; limit 50;");
-    genres.forEach(genre => {
-      const slug = genre.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-\([^)]+\)$/, ''); // Handle parentheses in slugs
-      createNode({
-        ...genre,
-        slug,
-        id: createNodeId(`Genre-${genre.id}`),
-        internal: {
-          type: "Genre",
-          content: JSON.stringify(genre),
-          contentDigest: createContentDigest(genre),
-        },
-      });
-    });
+  // Fetch data from IGDB
+  const genres = await fetchIGDBData('genres', "fields name; limit 50;");
+  console.log("Genres fetched:", genres);
+  const games = await fetchIGDBData('games', "fields name, rating, genres, cover.url, summary; where rating >= 60; sort rating desc; limit 500;");
+  console.log("Games fetched:", games);
 
-    const games = await fetchIGDBData('games', "fields name, rating, genres.name, cover.url, summary; where rating >= 60; sort rating desc; limit 500;");
-    games.forEach(game => {
-      const gameSlug = game.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-      createNode({
-        ...game,
-        slug: gameSlug,
-        coverUrl: game.cover?.url || '',
-        summary: game.summary,
-        id: createNodeId(`Game-${game.id}`),
-        internal: {
-          type: "Game",
-          content: JSON.stringify(game),
-          contentDigest: createContentDigest(game),
-        },
+  // Initialize an object to keep track of games count per genre
+  const genreGamesCount = {};
+
+  // Iterate over games to count the number of games per genre
+  games.forEach(game => {
+    // Ensure game.genres exists before iterating over it
+    if (game.genres) {
+      game.genres.forEach(genreId => {
+        // If the genreId does not exist in the object, initialize it with 1, else increment the count
+        genreGamesCount[genreId] = (genreGamesCount[genreId] || 0) + 1;
       });
+    }
+  });
+
+  // Create nodes for genres with the additional gamesCount information
+  genres.forEach(genre => {
+    const genreSlug = genre.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-\([^)]+\)$/, ''); // Handle parentheses in slugs
+    createNode({
+      ...genre,
+      slug: genreSlug,
+      id: createNodeId(`Genre-${genre.id}`),
+      gamesCount: genreGamesCount[genre.id] || 0, // Add the games count for the genre
+      internal: {
+        type: "Genre",
+        contentDigest: createContentDigest(genre),
+      },
     });
-  } catch (error) {
-    console.error("Error fetching data from IGDB:", error);
-  }
+  });
+
+  // Create nodes for games, linking to genres by ID
+  games.forEach(game => {
+    const gameSlug = game.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    // Check if game.genres exists before mapping over it
+    const genreNodeIds = game.genres ? game.genres.map(genreId => createNodeId(`Genre-${genreId}`)) : [];
+
+    createNode({
+      ...game,
+      slug: gameSlug,
+      coverUrl: game.cover?.url || '',
+      genres: genreNodeIds, // Use the safe mapping result
+      id: createNodeId(`Game-${game.id}`),
+      internal: {
+        type: "Game",
+        contentDigest: createContentDigest(game),
+      },
+    });
+  });
 };
+
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
@@ -114,7 +131,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
 exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions;
-  const typeDefs = `
+  createTypes(`
     type Game implements Node @dontInfer {
       id: ID!
       name: String!
@@ -122,14 +139,13 @@ exports.createSchemaCustomization = ({ actions }) => {
       slug: String!
       coverUrl: String
       summary: String
-      genres: [Genre] @link(by: "name", from: "genres.name")
+      genres: [Genre] @link(by: "id")
     }
     type Genre implements Node @dontInfer {
       id: ID!
       name: String!
       slug: String!
+      gamesCount: Int
     }
-  `;
-  createTypes(typeDefs);
+  `);
 };
-
