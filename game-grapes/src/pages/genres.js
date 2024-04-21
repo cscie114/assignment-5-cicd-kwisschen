@@ -7,7 +7,8 @@ export default function GenresPage({ data }) {
 
   return (
     <Layout>
-      <h1>Game Genres</h1>
+      <h1>Highest-Rated Games of all Time</h1>
+      <h2>Sorted by Genre</h2>
       <ul>
         {allGenre.nodes.map(genre => (
           <li key={genre.id}>

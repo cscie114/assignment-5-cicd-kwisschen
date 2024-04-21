@@ -43,15 +43,14 @@ exports.sourceNodes = async ({ actions, createContentDigest, createNodeId }) => 
       });
     });
 
-    const games = await fetchIGDBData('games', "fields name, rating, genres.name, cover.url; where rating >= 60; sort rating desc; limit 500;");
-    console.log(games); // Temporarily log the fetched games to inspect the data
-
+    const games = await fetchIGDBData('games', "fields name, rating, genres.name, cover.url, summary; where rating >= 60; sort rating desc; limit 500;");
     games.forEach(game => {
       const gameSlug = game.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
       createNode({
         ...game,
         slug: gameSlug,
         coverUrl: game.cover?.url || '',
+        summary: game.summary,
         id: createNodeId(`Game-${game.id}`),
         internal: {
           type: "Game",
@@ -83,7 +82,7 @@ exports.createPages = async ({ graphql, actions }) => {
   genresResult.data.allGenre.nodes.forEach(genre => {
     createPage({
       path: `/genre/${genre.slug}/`,
-      component: path.resolve(`./src/templates/genre-page.js`),
+      component: path.resolve(`./src/pages/genre-page.js`),
       context: {
         genreId: genre.id,
         genreName: genre.name,
@@ -105,7 +104,7 @@ exports.createPages = async ({ graphql, actions }) => {
   gamesResult.data.allGame.nodes.forEach(game => {
     createPage({
       path: `/game/${game.slug}/`,
-      component: path.resolve(`./src/templates/game-page.js`),
+      component: path.resolve(`./src/pages/game-page.js`),
       context: {
         gameId: game.id,
       },
@@ -122,6 +121,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       rating: Float
       slug: String!
       coverUrl: String
+      summary: String
       genres: [Genre] @link(by: "name", from: "genres.name")
     }
     type Genre implements Node @dontInfer {

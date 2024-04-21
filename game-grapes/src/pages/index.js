@@ -10,7 +10,7 @@ const IndexPage = () => (
     <div className={styles.heroSection}>
       <h1>Welcome to <span>Game Grapes</span>!</h1>
       <p>Your ultimate guide to the gaming world.</p>
-      <Link to="/genres" className={styles.exploreButton}>Explore Genres</Link>
+      <Link to="/genres" className={styles.exploreButton}>Explore Games</Link>
     </div>
     <div className={styles.featuredGames}>
       <h2>Featured Games</h2>
