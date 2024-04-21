@@ -13,7 +13,7 @@ const IndexPage = () => (
       <Link to="/genres" className={styles.exploreButton}>Explore Games</Link>
     </div>
     <div className={styles.featuredGames}>
-      <h2>Featured Games</h2>
+      <h2>Featured Game</h2>
       <div className={styles.gamesGrid}>
         {/* Replace with (dynamic) content later */}
         <div className={styles.gameCard}>
@@ -24,9 +24,8 @@ const IndexPage = () => (
             layout="constrained"
           />
           <h3>Game Title</h3>
-          <p>Short description of the game to entice users.</p>
+          <p>Short description of a randomly chosen game to entice users.</p>
         </div>
-        {/* Repeat for other featured games later */}
       </div>
     </div>
   </Layout>

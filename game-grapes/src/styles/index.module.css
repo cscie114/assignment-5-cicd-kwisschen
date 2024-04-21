@@ -45,7 +45,8 @@
 }
 
 .gameCard {
-  width: 220px;
+  width: 20%;
+  height: 20%;
   border: 1px solid #ccc;
   border-radius: 10px;
   overflow: hidden;

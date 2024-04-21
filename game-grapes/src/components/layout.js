@@ -6,19 +6,19 @@ const Layout = ({ children }) => (
   <div className={styles.siteWrapper}>
     <header className={styles.header}>
       <div>
-        <h1 className={styles.siteTitle}>Game Grapes</h1>
+        <h1 className={styles.siteTitle}><a href="/">Game Grapes</a></h1>
       </div>
       <nav>
         <ul className={styles.navLinks}>
           <li className={styles.navLinkItem}><a href="/">Home</a></li>
-          <li className={styles.navLinkItem}><a href="/genres">Genres</a></li>
           <li className={styles.navLinkItem}><a href="/about">About</a></li>
+          <li className={styles.navLinkItem}><a href="/genres">Genres</a></li>
         </ul>
       </nav>
     </header>
     <main className={styles.content}>{children}</main>
     <footer className={styles.siteFooter}>
-      © {new Date().getFullYear()} Game Grapes. All rights reserved.
+      {new Date().getFullYear()} © Christopher Chen
     </footer>
   </div>
 );

@@ -27,9 +27,9 @@ exports.sourceNodes = async ({ actions, createContentDigest, createNodeId }) => 
 
   // Fetch data from IGDB
   const genres = await fetchIGDBData('genres', "fields name; limit 50;");
-  console.log("Genres fetched:", genres);
+  //console.log("Genres fetched:", genres);
   const games = await fetchIGDBData('games', "fields name, rating, genres, cover.url, summary; where rating >= 60; sort rating desc; limit 500;");
-  console.log("Games fetched:", games);
+  //console.log("Games fetched:", games);
 
   // Initialize an object to keep track of games count per genre
   const genreGamesCount = {};
