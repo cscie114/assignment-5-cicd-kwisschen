@@ -4,6 +4,7 @@ import Layout from "../components/layout";
 
 const GamePage = ({ data }) => {
   const { game } = data;
+  console.log(data); // Check that browser console correctly logs data
   return (
     <Layout>
       <div>
@@ -31,5 +32,6 @@ export const query = graphql`
     }
   }
 `;
+
 
 export default GamePage;

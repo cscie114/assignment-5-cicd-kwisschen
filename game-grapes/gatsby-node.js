@@ -89,7 +89,6 @@ exports.createPages = async ({ graphql, actions }) => {
       allGenre {
         nodes {
           id
-          name
           slug
         }
       }
@@ -102,7 +101,6 @@ exports.createPages = async ({ graphql, actions }) => {
       component: path.resolve(`./src/pages/genre-page.js`),
       context: {
         genreId: genre.id,
-        genreName: genre.name,
       },
     });
   });
@@ -133,7 +131,6 @@ exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions;
   createTypes(`
     type Game implements Node @dontInfer {
-      gameId: String!
       name: String!
       rating: Float
       slug: String!
