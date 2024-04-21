@@ -9,6 +9,9 @@ module.exports = {
     author: `Christopher Chen`,
     siteUrl: `http://localhost:8000`,
   },
+  flags: {
+    PARALLEL_QUERY_RUNNING: true
+  },
   plugins: [
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
