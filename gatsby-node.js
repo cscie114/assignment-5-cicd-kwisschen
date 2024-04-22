@@ -15,6 +15,7 @@ async function fetchIGDBData(endpoint, query) {
     headers: HEADERS,
     body: query,
   });
+  console.log(response);
   if (!response.ok) {
     const message = await response.text();
     throw new Error(`Failed to fetch from IGDB: ${response.status} ${response.statusText} - ${message}`);
@@ -146,3 +147,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     }
   `);
 };
+
+if (process.env.NODE_ENV === 'test') {
+  exports.fetchIGDBData = fetchIGDBData;
+}
