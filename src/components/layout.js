@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import * as styles from "../styles/layout.module.css";
 
 const Layout = ({ children }) => (
@@ -22,9 +21,5 @@ const Layout = ({ children }) => (
     </footer>
   </div>
 );
-
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
-};
 
 export default Layout;
