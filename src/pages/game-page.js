@@ -16,7 +16,7 @@ const GamePage = ({ data }) => {
             )}
             <h3>Rating:</h3>
             <p>{game.rating ? game.rating.toFixed(1) : "N/A"}</p>
-            <h3>Summary:</h3>
+            <h3>Description:</h3>
             <p>{game.summary}</p>
           </>
         )}
