@@ -13,7 +13,7 @@ __Visit our website here:__ https://gamegrapes.netlify.app/
 
 
 
-## How to run the website in 8 simple steps:
+## How to run the website in 9 simple steps:
 
 ### Step 1
 
@@ -78,10 +78,10 @@ __'npm run lint'__
 
 __'npm run test'__
 
-Note: you'll need to set up the .env variables obtained in Step 5 on GitHub for building/testing/deploying via GitHub Actions.
+Note: you'll need to set up the .env secrets from Steps 5 & 6 in GitHub for building/testing/deploying via GitHub Actions.
 
 
-### Step 8
+### Step 9
 
 Preview the website locally:
 
