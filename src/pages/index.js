@@ -1,36 +1,57 @@
-import React, { useState } from "react"
-import { Link, navigate } from "gatsby"
-import { StaticImage } from "gatsby-plugin-image"
-import Layout from "../components/layout"
-import Seo from "../components/seo"
-import * as styles from "../styles/index.module.css"
+import React, { useState, useRef } from "react";
+import { Link, navigate } from "gatsby";
+import { StaticImage } from "gatsby-plugin-image";
+import Layout from "../components/layout";
+import Seo from "../components/seo";
+import * as styles from "../styles/index.module.css";
 
 const IndexPage = () => {
-  const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [msg, setMsg] = useState(null);  // Message state to show feedback
+  const formRef = useRef(null);  // Reference to the form
 
-  const handleSubmit = e => {
-    e.preventDefault()
-    navigate("/confirm-page") // Redirect to a confirmation page after form submission
-  }
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(formRef.current);  // Access form data wit useRef
+    const encData = new URLSearchParams(formData).toString();
+
+    try {
+      const response = await fetch("/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: encData,
+      });
+
+      if (response.ok) {
+        setMsg(<p>Thank you for submitting your request.</p>);  // Set success message
+        formRef.current.reset();  // Reset the form using the ref
+        navigate("/confirm-page");  // Navigate on successful submission
+      } else {
+        throw new Error('Network response was not ok.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert(`Submission error: ${error}`);
+    }
+  };
 
   const handleReset = () => {
-    // For resetting when Clear button is pressed
-    setName("")
-    setEmail("")
-  }
+    setName("");
+    setEmail("");
+    setMsg(null);  // Clear any messages
+    formRef.current.reset();
+  };
 
   return (
     <Layout>
       <div className={styles.heroSection}>
-        <h1>
-          Welcome to <span>Game Grapes</span>!
-        </h1>
+        <h1>Welcome to <span>Game Grapes</span>!</h1>
         <p>Your ultimate guide to the gaming world.</p>
         <br />
-        <Link to="/genres" className={styles.exploreButton}>
-          Explore Games
-        </Link>
+        <Link to="/genres" className={styles.exploreButton}>Explore Games</Link>
       </div>
 
       <div className={styles.featuredGames}>
@@ -56,6 +77,7 @@ const IndexPage = () => {
           method="POST"
           data-netlify="true"
           onSubmit={handleSubmit}
+          ref={formRef}
         >
           <input type="hidden" name="form-name" value="Data Collection Form" />
           <label>
@@ -78,16 +100,14 @@ const IndexPage = () => {
           </label>
           <div className={styles.formButtons}>
             <button type="submit">Send</button>
-            <button type="button" onClick={handleReset}>
-              Clear
-            </button>
+            <button type="button" onClick={handleReset}>Clear</button>
           </div>
         </form>
       </div>
     </Layout>
-  )
-}
+  );
+};
 
 export const Head = () => <Seo title="Home" />
 
-export default IndexPage
+export default IndexPage;
