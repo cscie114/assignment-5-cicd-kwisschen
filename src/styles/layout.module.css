@@ -96,7 +96,6 @@ main {
 
 .navLinkItem a:hover {
     color: var(--secondary-color);
-    /* Adding an underline effect on hover */
     background-size: 100% 2px;
 }
 
@@ -111,7 +110,7 @@ main {
 
 .content {
     margin-top: var(--header-height); /* Adjust for fixed header */
-    padding-top: 20px; /* Additional padding */
+    padding-top: 20px;
     animation: contentFadeIn 1s ease-out;
 }
 
@@ -145,7 +144,7 @@ button {
     padding: 10px 20px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    border-radius: 4px; /* Rounded corners for buttons */
+    border-radius: 4px;
 }
 
 button:hover {

@@ -3,7 +3,7 @@
 ## Introduction
 Game Grapes is a Gatsby project built (almost) from scratch in CSCI E-114. Utilizing the Internet Game Database (IGDB) from Amazon's Twitch, Game Grapes provides information on the top 500 rated games of all time, regardless of whether they've aged into fine wine, as sorted by genre. This website runs ESLint and Jest tests, and implements CI/CD with GitHub Actions, Netlify Actions, as well as Netlify for deployment and hosting.
 
-The homepage provides a Call-to-Action button which links to a genres page, the genres page contains a list of genre links each including the number of top 500 games falling under that genre and linking to individual genre pages, each genre page contains a list of game links beside which their ratings, and finally, clicking into each of these game links will yield an individual game page displaying the cover of that game, the rating, and a brief description of the game.
+The homepage provides a Call-to-Action button which links to a genres page, the genres page contains a list of genre links each including the number of top 500 games falling under that genre and linking to individual genre pages, each individual genre page contains a list of game links beside which each rating is shown, and finally, clicking into each of these game links will yield an individual game page displaying the cover of that game, the rating, and a brief description of the game.
 
 The homepage also includes a "featured game" card that will eventually take the user directly to a random game page when clicked (not yet implemented).
 
@@ -78,7 +78,7 @@ __'npm run lint'__
 
 __'npm run test'__
 
-Note: you'll need to set up the .env variables obtained in Step 5 on GitHub for building/testing/deploying via GitHub Actions
+Note: you'll need to set up the .env variables obtained in Step 5 on GitHub for building/testing/deploying via GitHub Actions.
 
 
 ### Step 8
@@ -87,4 +87,4 @@ Preview the website locally:
 
 __http://localhost:8000/__
 
-Note: signing up for our newsletter via Netlify Forms will require visiting our live website [here](https://gamegrapes.netlify.app/)
+Note: signing up for our newsletter via Netlify Forms will require visiting our live website [here](https://gamegrapes.netlify.app/).
