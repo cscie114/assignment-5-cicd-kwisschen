@@ -8,7 +8,6 @@ import * as styles from "../styles/index.module.css";
 const IndexPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [msg, setMsg] = useState(null);  // Message state to show feedback
   const formRef = useRef(null);  // Reference to the form
 
   const handleSubmit = async (event) => {
@@ -26,7 +25,6 @@ const IndexPage = () => {
       });
 
       if (response.ok) {
-        setMsg(<p>Thank you for submitting your request.</p>);  // Set success message
         formRef.current.reset();  // Reset the form using the ref
         navigate("/confirm-page");  // Navigate on successful submission
       } else {
@@ -41,7 +39,6 @@ const IndexPage = () => {
   const handleReset = () => {
     setName("");
     setEmail("");
-    setMsg(null);  // Clear any messages
     formRef.current.reset();
   };
 
