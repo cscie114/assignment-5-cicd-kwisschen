@@ -1,9 +1,9 @@
-import React from "react";
-import { graphql, Link } from "gatsby";
-import Layout from "../components/layout";
+import React from "react"
+import { graphql, Link } from "gatsby"
+import Layout from "../components/layout"
 
 export default function GenresPage({ data }) {
-  const { allGenre } = data;
+  const { allGenre } = data
 
   return (
     <Layout>
@@ -12,14 +12,15 @@ export default function GenresPage({ data }) {
       <ul>
         {allGenre.nodes.map(genre => (
           <li key={genre.id}>
-            <Link to={`/genre/${genre.slug}/`}>{genre.name} ({genre.gamesCount})</Link>
+            <Link to={`/genre/${genre.slug}/`}>
+              {genre.name} ({genre.gamesCount})
+            </Link>
           </li>
         ))}
       </ul>
     </Layout>
-  );
+  )
 }
-
 
 export const query = graphql`
   query GenresQuery {
@@ -32,5 +33,4 @@ export const query = graphql`
       }
     }
   }
-`;
-
+`

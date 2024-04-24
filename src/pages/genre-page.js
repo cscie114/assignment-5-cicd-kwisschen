@@ -1,9 +1,11 @@
-import React from "react";
-import { graphql, Link } from "gatsby";
-import Layout from "../components/layout";
+import React from "react"
+import { graphql, Link } from "gatsby"
+import Layout from "../components/layout"
 
 const GenrePage = ({ data, pageContext }) => {
-  const { allGame: { nodes: games } } = data;
+  const {
+    allGame: { nodes: games },
+  } = data
 
   return (
     <Layout>
@@ -11,17 +13,21 @@ const GenrePage = ({ data, pageContext }) => {
       <ul>
         {games.map(game => (
           <li key={game.id}>
-            <Link to={`/game/${game.slug}/`}>{game.name}</Link> - Rating: {game.rating ? game.rating.toFixed(1) : "N/A"}
+            <Link to={`/game/${game.slug}/`}>{game.name}</Link> - Rating:{" "}
+            {game.rating ? game.rating.toFixed(1) : "N/A"}
           </li>
         ))}
       </ul>
     </Layout>
-  );
-};
+  )
+}
 
 export const query = graphql`
   query GenreGamesQuery($genreId: String = "") {
-    allGame(filter: {genres: {elemMatch: {id: {eq: $genreId}}}}, sort: {rating: DESC}) {
+    allGame(
+      filter: { genres: { elemMatch: { id: { eq: $genreId } } } }
+      sort: { rating: DESC }
+    ) {
       nodes {
         id
         name
@@ -30,6 +36,6 @@ export const query = graphql`
       }
     }
   }
-`;
+`
 
-export default GenrePage;
+export default GenrePage

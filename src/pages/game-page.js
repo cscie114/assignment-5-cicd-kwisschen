@@ -1,9 +1,9 @@
-import React from "react";
-import { graphql } from "gatsby";
-import Layout from "../components/layout";
+import React from "react"
+import { graphql } from "gatsby"
+import Layout from "../components/layout"
 
 const GamePage = ({ data }) => {
-  const { game } = data;
+  const { game } = data
 
   return (
     <Layout>
@@ -12,7 +12,16 @@ const GamePage = ({ data }) => {
           <>
             <h1>{game.name}</h1>
             {game.coverUrl && (
-              <img src={game.coverUrl} style={{ objectFit: 'contain', width: '20%', height: '20%', borderRadius: '10px' }} alt={`Cover image for ${game.name}`} />
+              <img
+                src={game.coverUrl}
+                style={{
+                  objectFit: "contain",
+                  width: "20%",
+                  height: "20%",
+                  borderRadius: "10px",
+                }}
+                alt={`Cover image for ${game.name}`}
+              />
             )}
             <h3>Rating:</h3>
             <p>{game.rating ? game.rating.toFixed(1) : "N/A"}</p>
@@ -23,8 +32,8 @@ const GamePage = ({ data }) => {
         {!game && <p>Game not found.</p>}
       </div>
     </Layout>
-  );
-};
+  )
+}
 
 export const query = graphql`
   query GameQuery($gameId: String = "") {
@@ -36,6 +45,6 @@ export const query = graphql`
       summary
     }
   }
-`;
+`
 
-export default GamePage;
+export default GamePage
